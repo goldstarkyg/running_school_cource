@@ -1,0 +1,38 @@
+@import "src/@fuse/scss/fuse";
+
+.mat-table {
+  width: 100%;
+
+  .mat-column-id {
+    width       : 20px;
+    padding-left: 5px;
+  }
+
+  .mat-column-course_name {
+    width       : 100px;
+    padding-left: 5px;
+  }
+  
+  .mat-column-course_content {
+    width       : 120px;
+    padding-left: 5px;
+  }
+
+  .mat-column-modify {
+    width       : 20px;
+  }
+}
+
+#add-contact-button {
+  position: fixed;
+  bottom  : 12px;
+  right   : 12px;
+  padding : 0;
+  z-index : 99;
+
+  @include media-breakpoint('xs') {
+    position: sticky;
+    top     : calc(100vh - 120px);
+    bottom  : auto;
+  }
+}

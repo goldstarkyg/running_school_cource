@@ -1,0 +1,23 @@
+@import "src/@fuse/scss/fuse";
+
+.save-button
+{
+    background:red!important;
+    color: white!important;
+    margin-bottom: 20px;
+    height: 50px;
+}
+
+#add-contact-button {
+  position: fixed;
+  bottom  : 12px;
+  right   : 12px;
+  padding : 0;
+  z-index : 99;
+
+  // @include media-breakpoint('xs') {
+  //   position: sticky;
+  //   top     : calc(100vh - 120px);
+  //   bottom  : auto;
+  // }
+}

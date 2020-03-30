@@ -1,0 +1,34 @@
+<div class="dialog-content-wrapper2">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <p style="text-align: center"> <Strong>Once approved, you need to pay for this course to join.</Strong> </p>
+
+    <div mat-dialog-content class="p-16 pb-0 m-0" fusePerfectScrollbar>
+        <form name="eventForm" [formGroup]="eventForm" class="event-form w-100-p" fxLayout="column" fxFlex>
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Pay Amount</mat-label>
+                <input readonly matInput name="payment" formControlName="payment" [(ngModel)]='payment' required>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-button color="primary"
+            class="save-button"
+            (click)="matDialogRef.close(eventForm)"
+            aria-label="ADD">
+            Close
+        </button>
+
+    </div>
+</div>

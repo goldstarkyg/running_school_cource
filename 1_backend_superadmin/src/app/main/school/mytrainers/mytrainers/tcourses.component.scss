@@ -1,0 +1,46 @@
+@import "src/@fuse/scss/fuse";
+
+.mat-table {
+  width: 100%;
+
+  .mat-column-course {
+    width       : 120px;
+    padding-left: 5px;
+  }
+
+  @include media-breakpoint('xs') {
+    .mat-column-level {
+      width       : 60px;
+      padding-left: 5px;
+    }
+
+    .mat-column-price {
+      width       : 45px;
+      padding-left: 5px;
+    }
+
+    .mat-column-attend {
+      width       : 50px;
+      padding-left: 5px;
+    }
+
+    .mat-column-feedback {
+      width       : 50px;
+      padding-left: 5px;
+    }
+  }
+}
+
+#add-contact-button {
+  position: fixed;
+  bottom  : 12px;
+  right   : 12px;
+  padding : 0;
+  z-index : 99;
+
+  // @include media-breakpoint('xs') {
+  //   position: sticky;
+  //   top     : calc(100vh - 120px);
+  //   bottom  : auto;
+  // }
+}

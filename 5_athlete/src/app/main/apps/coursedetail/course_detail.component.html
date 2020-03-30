@@ -1,0 +1,154 @@
+<div id="about" class="p-24" fxLayout="row wrap" style="margin: 0 auto;">
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="accent">
+                <div class="title">School Information</div>
+            </header>
+
+            <div class="content">
+                <div style="text-align:center;" class="school-image mr-8 mr-sm-16"
+                    [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="detailInfo.school_pic"
+                        [src]="urlHeader+detailInfo.school_pic" [border]="2">
+                    <img *ngIf="!detailInfo.school_pic"
+                        [src]="defBannerUrl" [border]="2">
+                </div>
+
+                <div style="margin-top: 10px" class="info-line">
+                    <div class="title"> School Name</div>
+                    <div class="info"> {{detailInfo.school_name}} </div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Location</div>
+                    <!-- <div class="info">{{about.general.birthday}}</div> -->
+                    <div class="info">{{detailInfo.location}}<mat-icon
+                            class="s-16 ml-4">location_on</mat-icon></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box work" fxLayout="column">
+            <header class="accent">
+                <!-- detailInfo.reserved -->
+                <div *ngIf="detailInfo.reserved=='-1'" class="title">Course Information <label style="float: right; color: red"> Not Reserved </label></div>
+                <div *ngIf="detailInfo.reserved=='0'" class="title">Course Information <label style="float: right; color: yellow"> Pending </label></div>
+                <div *ngIf="detailInfo.reserved=='1'" class="title">Course Information <label style="float: right; color: blue"> Reserved </label></div>
+                <div *ngIf="detailInfo.reserved=='2'" class="title">Course Information <label style="float: right; color: black"> Closed </label></div>
+                <div *ngIf="detailInfo.reserved=='3'" class="title">Course Information <label style="float: right; color: black"> Running </label></div>
+                <div *ngIf="detailInfo.reserved=='4'" class="title">Course Information <label style="float: right; color: black"> Declined </label></div>
+            </header>
+
+            <div class="content">
+                <div class="info-line">
+                    <div class="title">Course Name</div>
+                    <div class="info">{{detailInfo.course_name}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Course Level</div>
+                    <div class="info">{{detailInfo.course_level}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Course Description</div>
+                    <div class="info">{{detailInfo.course_desc}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Personal Trainer</div>
+                    <div class="school-image mr-8 mr-sm-16"
+                        [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                        <img *ngIf="detailInfo.trainer_pic" style="width: 20%;"
+                            [src]="urlHeader+detailInfo.trainer_pic" (click)="viewPersonalDetail(detailInfo.trainer_id)">
+                        <img *ngIf="!detailInfo.trainer_pic" style="width: 20%;"
+                            [src]="defImageUrl" (click)="viewPersonalDetail(detailInfo.trainer_id)">
+                    </div>
+                    <div style="margin-left: 5px;" class="info">{{detailInfo.trainer_name}}</div>
+                </div>
+
+                <div class="info-line">
+                    <button *ngIf="detailInfo.reserved==='-1'" style="float: right;" id="reserve-button" mat-button
+                        class="save-button"
+                        (click)="onReserve()" aria-label="SAVE">
+                        Reserve
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box work" fxLayout="column">
+            <header class="accent">
+                <div class="title">Lesson List</div>
+            </header>
+
+            <div class="content">
+                <div class="info-line">
+                    <table class="info jobs">
+                        <tr class="job" *ngFor="let course of detailInfo.courses">
+                            <td class="company">{{course.lesson_name}}</td>
+                            <td class="company">{{course.lesson_desc}}</td>
+                            <td class="ldate">{{course.lesson_date}} </td>
+                            <td fxShow fxHide.lt-md class="date1">{{course.start_time}} ~ </td>
+                            <td fxShow fxHide.lt-md class="date2">{{course.end_time}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box contact" fxLayout="column">
+            <header class="accent">
+                <div class="title">Related Courses</div>
+            </header>
+
+            <div class="content">
+                <div class="info-line">
+                    <table class="info jobs">
+                        <tr class="job" *ngFor="let relate of
+                            detailInfo.related">
+                            <td class="company"><strong>Name:</strong>{{relate.course_name}},
+                            </td>
+                            <td class="company"><strong>Desc:</strong>{{relate.course_desc}},
+                            </td>
+                            <td class="date"><strong>Level:</strong>{{relate.course_level}},
+                            </td>
+                            <td class="date"><strong>Seats:</strong>{{relate.course_seats}}
+                                people, </td>
+                            <td class="date"><strong>Price:</strong>{{relate.price}}
+                                €, </td>
+                            <td class="date"><i class="material-icons" (click)="viewCourse(relate)"> edit
+                                </i> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50"
+        fxFlex.gt-md="35">
+        <div class="profile-box friends" fxLayout="column">
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between
+                center">
+                <div class="title">Personal Trainers</div>
+            </header>
+
+            <div class="content" fxLayout="row wrap">
+                <div class="friend" fxFlex="20" *ngFor="let trainer of detailInfo.trainers">
+                    <img *ngIf="trainer.pic" [src]="urlHeader+trainer.pic" (click)="viewPersonalDetail(trainer.id)">
+                    <img *ngIf="!trainer.pic" [src]="defImageUrl" (click)="viewPersonalDetail(trainer.id)">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-contact-button" (click)="goBack()"
+    aria-label="add course"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>arrow_back_ios</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->

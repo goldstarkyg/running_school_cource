@@ -1,0 +1,105 @@
+@import "src/@fuse/scss/fuse";
+
+.mat-table {
+  width: 100%;
+
+  .mat-column-id {
+    width : 20px;
+    padding-left: 5px;
+  }
+
+  .mat-column-avatar {
+    width : 50px;
+    padding-left: 5px;
+  }
+
+  .mat-column-name {
+    width : 160px;
+    padding-left: 5px;
+  }
+
+  .mat-column-score {
+    width : 240px;
+    padding-left: 5px;
+  }
+
+  .mat-column-modify {
+    width : 30px;
+  }
+  
+  @media screen and (max-width: 520px) {
+    .mat-column-avatar {
+      width : 55px;
+    }
+  
+    .mat-column-name {
+      width : 55px;
+    }
+  
+    .mat-column-score {
+      width : 150px;
+    }
+  
+    .mat-column-modify {
+      width : 65px;
+    }
+  }
+
+}
+
+
+.rating {
+  float: left;
+}
+
+.rating:not(:checked)>input {
+  position: absolute;
+  top     : -9999px;
+  clip    : rect(0, 0, 0, 0);
+}
+
+.rating:not(:checked)>label {
+  float      : right;
+  width      : 1em;
+  padding    : 0.1em;
+  overflow   : hidden;
+  white-space: nowrap;
+  cursor     : pointer;
+  font-size  : 200%;
+  line-height: 1.2;
+  color      : #ddd;
+}
+
+.rating:not(:checked)>label:before {
+  content: '★ ';
+}
+
+.rating>input:checked~label {
+  color: #f70;
+}
+
+.rating:not(:checked)>label:hover,
+.rating:not(:checked)>label:hover~label {
+  color: gold;
+}
+
+
+.rating>input:checked~label:hover,
+.rating>input:checked~label:hover~label,
+.rating>label:hover~input:checked~label {
+  color: #ea0;
+}
+
+#add-contact-button {
+  position: fixed;
+  bottom  : 12px;
+  right   : 12px;
+  padding : 0;
+  z-index : 99;
+
+  @include media-breakpoint('xs') {
+    position: sticky;
+    top     : calc(100vh - 120px);
+    bottom  : auto;
+  }
+}

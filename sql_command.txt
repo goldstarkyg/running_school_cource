@@ -1,0 +1,66 @@
+ALTER TABLE `membership_type` ADD COLUMN `status` TINYINT(2) UNSIGNED DEFAULT 1 NULL AFTER `name`; 
+ALTER TABLE `users` ADD COLUMN `verify_code` TINYTEXT NULL AFTER `status`; 
+
+// 2019-07-16 added by Li for giving review.
+ALTER TABLE `school_course_date_attend` ADD COLUMN `review` TEXT NULL AFTER `deleted_at`; 
+ALTER TABLE `school_course_date_attend` ADD COLUMN `score` DOUBLE NULL AFTER `review`; 
+
+//2019--07-20  add priice filed in pacakges table
+ALTER TABLE `packages` ADD COLUMN `price` INT UNSIGNED DEFAULT 0 NOT NULL AFTER `stock`;
+
+CREATE TABLE `school_pay_history` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `package_id` int(10) unsigned DEFAULT 0,
+  `user_id` int(10) DEFAULT 0,
+  `pay_amount` varchar(50) DEFAULT NULL,
+  `pay_currency` varchar(30) DEFAULT NULL,
+  `order_id` varchar(100) DEFAULT NULL,
+  `payer_id` varchar(100) DEFAULT NULL,
+  `email_address` varchar(200) DEFAULT NULL,
+  `intent` varchar(50) DEFAULT NULL,
+  `purchase_units` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+); 
+
+//2019--07-22  add bio column in reservation table.
+ALTER TABLE `school_course_reservation`
+	ADD COLUMN `bio` VARCHAR(250) NOT NULL AFTER `deleted_at`;
+//2019-07-23 add review table
+
+CREATE TABLE `school_course_date_review` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `course_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `level_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `school_course_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `from_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `to_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `star1` tinyint(2) unsigned NOT NULL DEFAULT 0,
+  `star2` tinyint(2) DEFAULT 0,
+  `star3` tinyint(2) DEFAULT 0,
+  `star4` tinyint(2) DEFAULT 0,
+  `star5` tinyint(2) DEFAULT 0,
+  `review` text DEFAULT NULL,
+  `score` double DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+)	
+
+/// 2019-07-24 for google maps & google places api.
+ALTER TABLE `users`
+	ADD COLUMN `lati` VARCHAR(20) NULL DEFAULT NULL AFTER `deleted_at`,
+	ADD COLUMN `longi` VARCHAR(20) NULL DEFAULT NULL AFTER `lati`;
+	
+ALTER TABLE `schools`
+	CHANGE COLUMN `lati` VARCHAR(20) NULL DEFAULT NULL AFTER `deleted_at`,
+	CHANGE COLUMN `longi` VARCHAR(20) NULL DEFAULT NULL AFTER `lati`;
+	
+/// 2019-07-24 for google maps & google places api.
+npm i @angular/cdk @angular/material @angular/animations @angular/forms 
+npm install --save @angular-material-extensions/google-maps-autocomplete
+
+npm i -D @types/googlemaps
+npm i @agm/core 

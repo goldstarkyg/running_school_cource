@@ -1,0 +1,130 @@
+<div fxLayout="column" fxLayoutAlign="start start" style="width: 100%">
+    <div class="row" style="width: 100%">
+        <div fxLayout="column" fxLayoutAlign="start center"
+            style="background-color: black">
+            <form class="mat-card mat-elevation-z4 p-24 mr-24"
+                fxLayout="column" fxLayoutAlign="start"
+                fxFlex="1 0 auto" name="form" style="width: 60%"
+                [formGroup]="form">
+                <div fxLayout="row">
+                    <h3> <strong> {{'FIND' | translate}} </strong> </h3>
+                </div>
+
+                <div class="row" fxLayout="column" fxLayoutAlign="center center"
+                    fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between
+                    center">
+
+                    <mat-form-field appearance="outline" fxFlex="45">
+                        <input matInput
+                            formControlName="city"
+                            placeholder="{{'ENTER_CITY' | translate}}"
+                            matGoogleMapsAutocomplete
+                            (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                            (onLocationSelected)="onLocationSelected($event)">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="35"
+                        class="px-8" fxShow fxHide.xs="true" fxHide.lg="false">
+                        <input matInput placeholder="{{'ALL_CLASS' |
+                            translate}}" formControlName="type">
+                    </mat-form-field>
+
+                    <button mat-button color="primary" fxFlex="20"
+                        class="save-button"
+                        (click)="onClickSearch()"
+                        aria-label="ADD">
+                        {{'SEARCH'|translate}}
+                    </button>
+                </div>
+            </form>
+            <!-- / search form-->
+        </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start" style="width: 100%"
+        fxLayout.gt-md="row" fxLayoutGap="5px">
+        <!-- <div fxLayout="row" style="width: 100%"> -->
+
+        <div fxLayout="column" fxFlex="50">
+            <section style="background-color: rgb(190, 190, 190); color: black">
+                <p style="margin-left: 10px;"> <strong>Results for nearby
+                        {{cityName}}</strong></p>
+            </section>
+
+            <!-- <arrListData></arrListData> -->
+            <cdk-virtual-scroll-viewport style="height: 650px" itemSize="100">
+                <section *cdkVirtualFor="let data of arrListData"
+                    style="background-color: rgb(202, 225, 241); color: black">
+                    <p style="margin-left: 10px;padding-top: 18px;">
+                        <img src="assets/img/Logo/location.png" /> &nbsp;<strong>{{data.school_name}}</strong>
+                        &nbsp;&nbsp; {{data.location}} </p>
+
+                    <p style="padding-top: 18px; padding-bottom: 18px;
+                        text-align: center; background-color: rgb(231, 231,
+                        231); color: black">
+                        <strong>{{data.course_name}}&nbsp; -
+                            &nbsp;{{data.course_level}}</strong>
+                    </p>
+
+                    <div fxLayout="row" (click)="viewContent(data)">
+                        <p fxFlex="90" style="margin-left:10px;padding-top:5px;">
+                            Description : {{data.course_desc}} </p>
+
+                        <div fxLayout="column" fxFlex="10" style="margin-left: 10px;padding-top:5px;">
+                            <i class="material-icons"> edit </i>
+                            <p>View</p>
+                        </div>
+                    </div>
+                    <div *ngFor="let course of data.courses" fxLayout="row"
+                        fxLayoutAlign="start" style="padding:2% 0 2% 0;
+                        border-top:1px solid rgb(83, 83, 83, 0.3);
+                        border-bottom: 0px solid rgb(83, 83, 83, 0.3);
+                        background-color: rgb(227, 227, 250); color: black"
+                        fxLayoutGap="2px">
+                        <div fxFlex="20">
+                            <div fxLayout="column" fxLayoutAlign="start">
+                                <p style="margin-left: 10px;">{{course.lesson_date}}</p>
+                                <p style="margin-left: 10px;">{{course.start_time}}
+                                    ~ {{course.end_time}}</p>
+                            </div>
+                        </div>
+                        <div fxFlex="55">
+                            <div fxLayout="column" fxLayoutAlign="start">
+                                <p style="margin-left: 10px;">
+                                    {{course.lesson_name}}</p>
+                                <p style="margin-left: 10px;">
+                                    {{course.lesson_desc}}</p>
+                            </div>
+                        </div>
+                        <div fxFlex="25">
+                            <p style="margin-left: 10px;">{{data.course_level}}</p>
+                            <div fxLayout="column" fxLayoutAlign="start">
+                                <div fxLayout="row" fxLayoutAlign="start"
+                                    fxLayoutGap="5px">
+                                    <img class="avatar"
+                                        *ngIf="course.trainer_pic"
+                                        [src]="urlHeader+course.trainer_pic" />
+                                    <img class="avatar"
+                                        *ngIf="!course.trainer_pic"
+                                        [src]="defImageUrl" />
+                                </div>
+                            </div>
+                            <p> {{course.trainer_name}}</p>
+                        </div>
+                    </div>
+                </section>
+            </cdk-virtual-scroll-viewport>
+        </div>
+        <div fxLayout="column" fxFlex="50">
+            <div #map style="width:100%;height:700px"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-contact-button" (click)="goBack()"
+    aria-label="add course"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>arrow_back_ios</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->

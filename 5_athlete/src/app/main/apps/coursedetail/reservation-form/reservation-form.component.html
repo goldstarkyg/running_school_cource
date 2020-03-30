@@ -1,0 +1,43 @@
+<div class="dialog-content-wrapper2">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-16 pb-0 m-0" fusePerfectScrollbar>
+        <form name="reserveForm" [formGroup]="reserveForm" class="event-form w-100-p" fxLayout="column">
+
+            <mat-form-field appearance="outline" fxFlex="100">
+                <mat-label>Reservation Contents</mat-label>
+                <textarea rows="7" matInput [(ngModel)]="model.bio" placeholder="Leave a content" formControlName="bio"></textarea>
+                <mat-error>Content is required!</mat-error>
+            </mat-form-field>
+
+            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                (onFileDropped)="uploadFile($event.target.files)">
+                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+            </div>
+            <div class="files-list" *ngIf="uploadfilename!==''">
+                <p> {{ uploadfilename }} </p>
+                <button class="delete-file" (click)="deleteAttachment()">
+                    <img src="assets/img/Recycle_Bin_Full.png">
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-button color="primary"
+            class="save-button"
+            (click)="sendRegister()"
+            [disabled]="reserveForm.invalid"
+            aria-label="RESERVE">
+            RESERVE
+        </button>
+
+    </div>
+</div>
